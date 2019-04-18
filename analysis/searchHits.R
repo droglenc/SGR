@@ -25,7 +25,8 @@ SH1 <- ggplot(SearchHits,aes(x=year,y=hits)) +
   scale_y_continuous(name="Search Results Returned",
                      limits=c(0,NA),expand=expand_scale(mult=c(0,0.03))) +
   scale_x_continuous(name="Publication Year",
-                     expand=expand_scale(mult=0.02)) +
+                     breaks=seq(2009,2018,1),
+                     expand=expand_scale(mult=0.04)) +
   theme_SGR
 SH1
 
@@ -35,9 +36,9 @@ SH2 <- ggplot(SearchHits,aes(x=year,y=percUseable)) +
   scale_y_continuous(name="% Useable Articles",
                      limits=c(0,NA),expand=expand_scale(mult=c(0,0.03))) +
   scale_x_continuous(name="Publication Year",
-                     expand=expand_scale(mult=0.02)) +
+                     breaks=seq(2009,2018,1),
+                     expand=expand_scale(mult=0.04)) +
   theme_SGR
 SH2
 
-SH1 + SH2
 
