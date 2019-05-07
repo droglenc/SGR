@@ -1,11 +1,11 @@
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 # DESCRIPTION: ----
-# This script loads the SearchHits.CSV file and plots the number of
-# GoogleScholar hits of "specific growth rate" AND fish against year and the
-# percentage of articles read per year to get 30 that met our criteria for
-# inclusion in the analysis by year.
+#
+# Loads the SearchHits.CSV file and plots the number of GoogleScholar hits for
+# '"specific growth rate" AND fish' against year, and the percentage of articles
+# read per year to get 30 that met our criteria for inclusion by year.
+#
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-
 
 ## Initialize ----
 cat("\014")

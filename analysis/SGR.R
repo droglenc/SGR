@@ -1,10 +1,10 @@
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 # DESCRIPTION: ----
-# This script loads the noSGR.CSV file (note there are odd characters in 
-# several of the fields, but not in the whyNotUsed field which is the main
-# field of interest here) and 
+#
+# Loads SGR.CSV (there are odd characters in several of the fields, but not in
+# the fields of interest here).
+#
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-
 
 ## Initialize ----
 cat("\014")
@@ -45,6 +45,4 @@ tblLW <- addmargins(xtabs(~lenwt+year,data=SGR),margin=2)
 round(100*prop.table(tblLW,margin=2),1)
 tblAE <- addmargins(xtabs(~context+year,data=SGR),margin=2)
 round(100*prop.table(tblAE,margin=2),1)
-
-
 

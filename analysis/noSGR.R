@@ -1,10 +1,10 @@
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 # DESCRIPTION: ----
-# This script loads the noSGR.CSV file (note there are odd characters in 
-# several of the fields, but not in the whyNotUsed field which is the main
-# field of interest here) and 
+#
+# Loads noSGR.CSV file (there are odd characters in several of the fields, but
+# not in the whyNotUsed field which is the main field of interest here).
+#
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-
 
 ## Initialize ----
 cat("\014")
@@ -15,9 +15,11 @@ source("code/GGTHEME.R")
 noSGR <- readr::read_csv("data/noSGR.csv") %>%
   mutate(whyNotUsed2=FSA::mapvalues(whyNotUsed,
                                     from=c("no access","no SGR","not English",
-                                           "not fish","not focus","not peer-reviewed"),
+                                           "not fish","not focus","not peer-reviewed",
+                                           "presentation abstract","review paper"),
                                     to=c("other","other","other",
-                                         "not fish","other","other")),
+                                         "not fish","other","other",
+                                         "other","other")),
          whyNotUsed=factor(whyNotUsed),
          whyNotUsed=relevel(whyNotUsed,"not fish"),
          whyNotUsed2=factor(whyNotUsed2))

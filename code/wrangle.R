@@ -1,12 +1,15 @@
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 # DESCRIPTION: ----
-# This script reads the data file from GoogleSheets, make a local Excel version
-# of it. It reads the Hits sheet, wrangles it for later use, and writes it out
-# as a CSV file. It reads in the individual year results sheets, wrangles them
-# for later use, stacks them so all years are in one data.frame, splits that
-# data.frame into those articles that used SGR and those that did not (but we
-# examined for use of SGR), and writes those those data.frames out to CSV files.
+#
+# 1. Reads the data file from GoogleSheets, make a local Excel version of it.
+# 2. Reads the Hits sheet, wrangles it for later use, and writes a CSV file.
+# 3. Reads the individual year results sheets, wrangles them for later use,
+#    stacks them so all years are in one data.frame, splits that data.frame into
+#    those articles that used SGR and those that did not (but were examined for
+#    use of SGR), and writes those data.frames to CSV files.
+#
 # These files are used in the analysis scripts.
+#
 # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
 
 ## Initialize ----
@@ -27,7 +30,7 @@ SearchHits <- readxl::read_excel("data/raw/SGR_Review.xlsx",sheet="Hits") %>%
 
 ### Get all Years Data
 #### List all years of data
-yrs <- 2009:2011
+yrs <- c(2009:2011,2015:2016)
 
 #### Create a data.frame to receive the results ... must load one year's of data
 #### to get the structure of the data.frame.
@@ -66,4 +69,3 @@ noSGR <- select(noSGR,-(SGR:context)) %>%
 write.csv(SearchHits,"data/SearchHits.csv",row.names=FALSE,quote=FALSE)
 write.csv(SGR,"data/SGR.csv",row.names=FALSE)
 write.csv(noSGR,"data/noSGR.csv",row.names=FALSE)
-
