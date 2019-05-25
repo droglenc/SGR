@@ -14,15 +14,19 @@ source("code/GGTHEME.R")
 
 noSGR <- readr::read_csv("data/noSGR.csv") %>%
   mutate(whyNotUsed2=FSA::mapvalues(whyNotUsed,
-                                    from=c("no access","no SGR","not English",
-                                           "not fish","not focus","not peer-reviewed",
-                                           "presentation abstract","review paper"),
-                                    to=c("other","other","other",
-                                         "not fish","other","other",
-                                         "other","other")),
+                                    from=c("not fish","no access","no SGR",
+                                           "no SGR eqn","not English","not focus",
+                                           "not peer-reviewed",
+                                           "presentation abstract",
+                                           "review paper","used mass-specific SGR"),
+                                    to=c("not fish","no access","no SGR",
+                                         "other","no access","other",
+                                         "not peer-reviewed","other","other","other")),
          whyNotUsed=factor(whyNotUsed),
          whyNotUsed=relevel(whyNotUsed,"not fish"),
-         whyNotUsed2=factor(whyNotUsed2))
+         whyNotUsed2=factor(whyNotUsed2,levels=c("not fish","no SGR",
+                                                 "no access","not peer-reviewed",
+                                                 "other")))
 
 
 ## Summary Tables ----
@@ -32,11 +36,11 @@ tbl2 <- addmargins(xtabs(~whyNotUsed2+year,data=noSGR),margin=2)
 round(100*prop.table(tbl2,margin=2),1)
 
 ## Summary Figures ----
-sum1 <- group_by(noSGR,year,whyNotUsed) %>%
+sum1 <- group_by(noSGR,year,whyNotUsed2) %>%
   summarize(freq=n()) %>%
   mutate(perc=freq/sum(freq)*100)
 
-whyNot <- ggplot(sum1,aes(x=year,y=perc,fill=whyNotUsed)) +
+whyNot <- ggplot(sum1,aes(x=year,y=perc,fill=whyNotUsed2)) +
   geom_bar(stat="identity",position=position_fill(reverse=TRUE)) +
   scale_y_continuous(name="% of Reasons Article Not Used",
                      labels=scales::percent,

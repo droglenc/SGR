@@ -30,7 +30,7 @@ SearchHits <- readxl::read_excel("data/raw/SGR_Review.xlsx",sheet="Hits") %>%
 
 ### Get all Years Data
 #### List all years of data
-yrs <- c(2009:2011,2015:2016)
+yrs <- c(2009:2011,2015:2018)
 
 #### Create a data.frame to receive the results ... must load one year's of data
 #### to get the structure of the data.frame.

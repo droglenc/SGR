@@ -75,7 +75,7 @@
 "JW Sweetman, S Torrecillas, A Dimitroglou, ...","Enhancing the natural defences and barrier protection of aquaculture species",2010,"Aquaculture …","not focus","mentions SGR, but not focus of paper"
 "K Kyaw, S Koshio, M Ishikawa, S Yokoyama, ...","Effects of different levels of dietary mussel phospholipids on the performances of Juvenile Kuruma Shrimp Marsupenaeus japonicus Bate",2010,"Aquaculture …","not fish",NA
 "H Mai, R Fotedar, J Fewtrell","Evaluation of Sargassum sp. as a nutrient-sink in an integrated seaweed-prawn (ISP) culture system",2010,"Aquaculture","not fish",NA
-"MAK Teichert, E Kvingedal, T Forseth, ...","Effects of discharge and local density on the growth of juvenile Atlantic salmon Salmo salar",2010,"Journal of Fish …","no SGR","uses a ""mass-specific growth rate"" from the references"
+"MAK Teichert, E Kvingedal, T Forseth, ...","Effects of discharge and local density on the growth of juvenile Atlantic salmon Salmo salar",2010,"Journal of Fish …","used mass-specific SGR",NA
 "S Vizzini, A Tomasello, GD Maida, M Pirrotta, ...","Effect of explosive shallow hydrothermal vents on d13C and growth performance in the seagrass Posidonia oceanica",2010,"Journal of …","not fish",NA
 "T Policar, J Smyth, M Flanigan, P Kozák, ...","Optimum water temperature for intensive production of Austropotamobius pallipes (Lereboullet) juveniles",2010,"Freshwater …","not fish",NA
 "WS Lee, P Monaghan, NB Metcalfe","The trade-off between growth rate and locomotor performance varies with perceived time until breeding",2010,"Journal of Experimental …","no SGR","does not appear to mention SGR"
@@ -190,3 +190,49 @@
 "P Paul, A Rahman, MM Hossain, S Islam…","Effect of stocking density on the growth and production of freshwater prawn (Macrobrachium rosenbergii)",2016,"… Journal of Fisheries …","not fish",NA
 "C Pinheiro, J Azevedo, A Campos, V Vasconcelos…","The interactive effects of microcystin-LR and cylindrospermopsin on the growth rate of the freshwater algae Chlorella vulgaris",2016,"Ecotoxicology","not fish",NA
 "JRP Labrador, RC Guiñares…","Effect of garlic powder-supplemented diets on the growth and survival of Pacific white leg shrimp (Litopenaeus vannamei)",2016,"Cogent Food & …","not fish",NA
+"R Jannathulla, JS Dayal, V Chitra, K Ambashankar…","Growth and carcass mineralisation of Pacific white leg shrimp Penaeus vannamei Boone 1931 in response to water salinity",2017,NA,"not fish",NA
+"K Felcmanová, M Lukeš, E Kotabová, E Lawrenz…","Carbon use efficiencies and allocation strategies in Prochlorococcus marinus strain PCC 9511 during nitrogen-limited growth",2017,"Photosynthesis …","not fish",NA
+"M Islam","Growth performance and proximate composition of Nile Tilapia Oreochromis niloticus (Linnaeus 1758) using Moina macrocopa (Straus 1820) as live feed",2017,NA,"no access","may not be peer-reviewed"
+"CN Payung, RA Tumbol…","Dietary ginger (Zingiber officinale) enhance resistance of Nile tilapia (Oreochromis niloticus) against Aeromonas hydrophila",2017,"… Aquarium, Conservation & …","no SGR eqn",NA
+"O Safari, M Paolucci","Effects of dietary onion (Allium cepa) powder on growth performance, hemolymph indices and fillet organoleptic properties of juvenile narrow-clawed crayfish, Astacus …",2017,"Aquaculture Nutrition","not fish",NA
+"CL Ayisi, X Hua, A Apraku, G Afriyie, BA Kyei","Recent studies toward the development of practical diets for shrimp and their nutritional requirements",2017,"HAYATI Journal of …","not fish",NA
+"F Mao, Y He, A Kushmaro, KYH Gin","Effects of benzophenone-3 on the green alga Chlamydomonas reinhardtii and the cyanobacterium Microcystis aeruginosa",2017,"Aquatic toxicology","not fish",NA
+"L Zhao, W Wang, X Huang, T Guo, W Wen…","The effect of replacement of fish meal by yeast extract on the digestibility, growth and muscle composition of the shrimp Litopenaeus vannamei",2017,"Aquaculture …","not fish",NA
+"LTT Trinh, I Bakke, O Vadstein","Correlations of age and growth rate with microbiota composition in Atlantic cod (Gadus morhua) larvae",2017,"Scientific reports","no SGR eqn",NA
+"E Awad, A Awaad","Role of medicinal plants on growth performance and immune status in fish",2017,"Fish & shellfish immunology","no SGR eqn",NA
+"J Cerezo Valverde, MD Hernández…","Development of low-lipid formulated feeds with different protein/energy ratios for Octopus vulgaris ongrowing",2017,"Aquaculture …","not fish",NA
+"A Richmond","Cell response to environmental factors",2017,"Handbook of Microalgal Mass Culture (1986 …","not fish",NA
+"AJ Jensen, B Finstad, P Fiske","Evidence for the linkage of survival of anadromous Arctic char and brown trout during winter to marine growth during the previous summer",2017,"Canadian Journal of Fisheries …","used mass-specific SGR",NA
+"K Fukuda, H Manabe, M Sakurai, S Dewa…","Monogamous mating system and sexuality in the gobiid fish, Trimma marinae (Actinopterygii: Gobiidae)",2017,"Journal of ethology","no SGR",NA
+"V Nita, M Nenciu","Using the recirculating technology in a pilot-system for mariculture at the Romanian Black Sea coast",2017,"Journal of Environmental Protection and …","no SGR",NA
+"AL Allman, EP Williams, AR Place","Growth and enzyme production in blue crabs (Callinectes sapidus) fed cellulose and chitin supplemented diets",2017,"Journal of Shellfish Research","not fish",NA
+"S Taheri, M Banaee, BN Haghi…","Evaluation of nephrotoxic effects of aflatoxins on common carp (Cyprinus carpio)",2017,"Iranian Journal of …","no SGR",NA
+"A Samaras, M Pavlidis, K Lika…","Scale matters: performance of European sea bass, Dicentrarchus labrax, L. (1758), reared in cages of different volumes",2017,"Aquaculture …","no SGR eqn",NA
+"A Kokkalis, AM Eikeset, UH Thygesen…","Estimating uncertainty of data limited stock assessments",2017,"ICES Journal of …","no SGR",NA
+"Y Su, E Hu, M Feng, Y Zhang, F Chen, Z Liu","Comparison of bacterial growth in response to photodegraded terrestrial chromophoric dissolved organic matter in two lakes",2017,"Science of The Total …","not fish",NA
+"B Sadoul, O Birceanu, N Aluru, JK Thomas…","Bisphenol A in eggs causes development-specific liver molecular reprogramming in two generations of rainbow trout",2017,"Scientific reports","no SGR",NA
+"S Kumar, J Sándor Zs, Z Nagy, G Fazekas…","Potential of processed animal protein versus soybean meal to replace fish meal in practical diets for European catfish (Silurus glanis): growth response and liver gene …",2017,"Aquaculture …","no SGR",NA
+"Z Dubinsky","Productivity of algae under natural conditions",2017,"Handbook of Microalgal Mass Culture (1986)","not fish",NA
+"P Tan, X Dong, H Xu, K Mai, Q Ai","Dietary vegetable oil suppressed non-specific immunity and liver antioxidant capacity but induced inflammatory response in Japanese sea bass (Lateolabrax …",2017,"Fish & shellfish immunology","no SGR",NA
+"QP Fitzgibbon, CJ Simon, GG Smith, CG Carter…","Temperature dependent growth, feeding, nutritional condition and aerobic metabolism of juvenile spiny lobster, Sagmariasus verreauxi",2017,"… and Physiology Part A …","not fish",NA
+"E Zhang, S Dong, F Wang, X Tian, Q Gao","Effects of l-tryptophan on the growth, intestinal enzyme activities and non-specific immune response of sea cucumber (Apostichopus japonicus Selenka) …",2018,"Fish & shellfish immunology","not fish",NA
+"AO Sotolu, EO Faturoti","Growth performance and haematology of Clarias gariepinus (Burchell, 1822) fed varying inclusions of Leucaena leucocephala seed meal based-diets| Evaluación del …",2018,"UDO Agrícola","no access",NA
+"S Cho, J Kim, S Kim, SS Lee","Nitrogen and phosphorus treatment of marine wastewater by a laboratory-scale sequencing batch reactor with eco-friendly marine high-efficiency sediment",2018,"Environmental technology","not fish",NA
+"J Dong, R Cheng, Y Yang, Y Zhao, G Wu…","Effects of dietary taurine on growth, non-specific immunity, anti-oxidative properties and gut immunity in the Chinese mitten crab Eriocheir sinensis",2018,"Fish & shellfish …","not fish",NA
+"S Sarani","Effect of dietary probiotic protexin on the growth parameters, survival and immune status of Schizothorax zarudnyi juveniles",2018,NA,"no access",NA
+"A Zamani, A Moafi","Effect of Replacement of Fish Oil by Grape Seed Oil on Growth Indices and Protease Enzymes Activity in Oncorhynchus mykiss",2018,"Fisheries Science and Technology","not English",NA
+"A De Cesare, S Vitali, GT Tessema, M Trevisani…","Modelling the growth kinetics of Listeria monocytogenes in pasta salads at different storage temperatures and packaging conditions",2018,"Food …","not fish",NA
+"M Liu, H Yin, X Chen, J Yang, Y Liang, J Zhang, F Yang…","Preliminary ecotoxicity hazard evaluation of DOPO-HQ as a potential alternative to halogenated flame retardants",2018,"Chemosphere","not fish",NA
+"AA Bischoff, M Lutz, BH Buck","Juvenile turbot (Scophthalmus maximus L., 1758) farmed in a modern low-water exchange RAS device: Growth performance using different diets and its commercial …",2018,"Journal of applied aquaculture","no access",NA
+"J Xiong, M Jin, Y Yuan, JX Luo, Y Lu…","Dietary nucleotide-rich yeast supplementation improves growth, innate immunity and intestinal morphology of Pacific white shrimp (Litopenaeus vannamei)",2018,"Aquaculture …","not fish",NA
+"CY Ratucoreh, B Retnoaji","The growth and histology structure of Indonesian eel (Anguilla bicolor bicolor McClelland, 1844) fed with microalgae",2018,"AIP Conference Proceedings","not peer-reviewed",NA
+"A El-Sebai, AEH El-Murr, AAA Galal…","EFFECT OF GINGER DIETARY SUPPLEMENTATION ON GROWTH PERFORMANCE, IMMUNE RESPONSE AND VACCINE EFFICACY IN Oreochromis niloticus …",2018,"Veterinary Medicine In …","no SGR eqn",NA
+"P Stathopoulou, P Berillis, E Levizou…","AQUAPONICS: A MUTUALLY BENEFICIAL RELATIONSHIP OF FISH, PLANTS AND BACTERIA",2018,NA,"not peer-reviewed",NA
+"BE INANAN, A Ümit, T INANAN","Chemical Composition Of Root Parts Of Ferula Elaeochytris Korov. And Its Food-Borne Effects On Growth Of Goldfish (Carassius auratus L.)",NA,"Uluslararasi Tarim ve Doga Bilimleri …","no access",NA
+"S Suwarsito, C Purbomartono","The effect of use of tofu dregs fermented on feed efficiency and growth of African cat fish (Clarias gariepinus)",2018,"IOP Conference Series: Materials …","not peer-reviewed",NA
+"K SPALVINS, D BLUMBERGA","Production of Fish Feed and Fish Oil from Waste Biomass Using Microorganisms: Overview of Methods Analyzing Resource Availability",2018,"Energy Procedia","no SGR",NA
+"NN Gabriel, E Omoregi, T Martin, L Kukuri…","Compensatory Growth Response in Oreochromis mossambicus Submitted to Short-Term Cycles of Feed Deprivation and Refeeding",2018,"Turkish Journal of …","no SGR eqn",NA
+"NA Gafar, BD Eyre, KG Schulz","A conceptual model for projecting coccolithophorid growth, calcification and photosynthetic carbon fixation rates in response to global ocean change",2018,"Frontiers in Marine Science","not fish",NA
+"M Gophen","Ecophysiology of Lake Kinneret (Israel) Zooplankton",2018,"Ecological Research in the Lake Kinneret and Hula …","not fish",NA
+"DR Barneche, AP Allen","The energetics of fish growth and how it constrains food-web trophic structure",2018,"Ecology letters","no SGR",NA
+"MVS Couto, NC Sousa, HA Abe, JAR Dias…","Effects of live feed containing Panagrellus redivivus and water depth on growth of Betta splendens larvae",2018,"Aquaculture …","no SGR eqn",NA
