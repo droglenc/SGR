@@ -1,0 +1,248 @@
+---
+title: "Use and misuse of a common growth metric: guidance for appropriately calculating and reporting specific growth rate"
+author: ""
+date: ""
+output:
+  word_document: 
+    reference_docx: Word_Style.docx
+csl: aquaculture.csl
+bibliography: SGR_paper.bib
+---
+
+```{r notes, echo=FALSE, eval=FALSE}
+
+#* Scientific names in bibliography will be mis-capitalized
+```
+
+```{r setup, echo=FALSE, include=FALSE, message=FALSE}
+## Must run wrangle.R script prior to this to retrieve the data from
+## GoogleScholar and wrangle it into the needed format which is printed out to
+## the CSV files that are read in the chunks below. You can run wrangle.R with
+##   source(paste0(here::here(),"/code/wrangle.R"))
+knitr::opts_chunk$set(echo = TRUE)
+library(FSA)
+library(dplyr)
+library(ggplot2)
+library(captioner)
+wdir <- here::here()
+source(paste0(wdir,"/","code/GGTHEME.R"))
+figures <- captioner::captioner(prefix="Figure")
+# short helper function
+RES <- function(x,digits=1) formatC(x,format="f",digits=digits)
+```
+
+##### Derek P. Crane
+###### Department of Biology, Coastal Carolina University, 107 Chanticleer Drive East, Conway, South Carolina, USA 29526; email: dcrane@coastal.edu; phone: (843) 349-4065
+
+##### Derek H. Ogle
+###### Department of Mathmatical Sciences and Department of Natural Resources, Northland College
+
+##### Daniel E. Shoup
+###### Department of Natural Resource Ecology and Management, Oklahoma State University
+
+####### Running title: Use of specific growth rate equation
+
+
+########
+
+######### Abstract
+XXX WILL BE MORE HERE XXX
+
+####### Keywords: aquaculture, fisheries sciences, specific growth rate
+
+
+########
+
+# Introduction
+Growth is one of the most commonly calculated vital rates in aquaculture and fisheries management.  Growth is often related to the other vital rates, survival [@postSizedependentOverwinterMortality1989; @olsonPredatorpreyInteractionsSizestructured1996; @garveyOverwinterGrowthSurvival1998] and fecundity [@danylchukAgeSizedependentVariation1994; @michaletzEffectBodySize1998], and is a critical component determining yield from a fishery [@rickerComputationInterpretationBiological1975]. Fish growth is of great interest to production aquaculture and commercial fisheries management because of its importance to yield, and to sportfish management because if its impact on population size structure. Growth is the net result of energy intake and expenditure and, as such, is usually influenced by environmental conditions such as prey availability [@hoxmeierGrowthSurvivalAge02006; @michaletzTemperaturePlanktonConspecific2014; @craneChangesGrowthDiet2016], predation risk [@shoupEffectsPredationRisk2003; @westerbergInfluencePredationRisk2004], turbidity [@tomckoRelationshipBluegillGrowth2001; @shoupEffectsTurbidityPrey2015], temperature [@michaletzTemperaturePlanktonConspecific2014; @weberMetabolicTheoryExplains2015], and water chemistry [@tomckoRelationshipBluegillGrowth2001; @shoupSizespecificGrowthBluegill2007]. Growth can be expressed in many ways (e.g., relative growth, instantaneous growth, size-specific growth), but all growth metrics requires knowledge of the size of fish at two or more points in time, either from direct or indirect (e.g., back calculation, modeling mean length at age, etc.) measurements [@shoupGrowthEstimationSummarization2017]. The time interval between size measurements can range from days to decades depending on the species and question of interest.
+
+XXX WILL BE MORE HERE XXX
+
+# Materials and methods
+## Literature review
+We reviewed the fisheries literature to determine the extent to which SGR is used, the rate at which the typical SGR (equation 1) and the correct SGR (equation 2) equations are used, and other characteristics related to the use of SGR (described below). To estimate the overall use of SGR, we recorded the number of results returned by GoogleScholar$^{\text{TM}}$ (hereafter, GS) using the search criteria ‘”specific growth rate” AND fish’ for each year from 2009 to 2018. We then obtained a sample of approximately 1000 results each year from this search using PublishOrPerish$^{\text{TM}}$ [@harzingPublishPerish2007]. To reduce any ranking bias related to the GS search algorithm, we randomized the results from each year and then examined as many results as needed to obtain a sample of 30 results per year that met the following criteria: a result must be a journal article (i.e., a "paper"), be electronically accessible to us via the internet or our library subscriptions, be written in English, be peer-reviewed, not be a synthetic review, specifically mention “specific growth rate” or “SGR” and have SGR be a substantive portion of the paper, be about fish (shellfish were excluded), provide the specific SGR equation, and not use the mass-specific SGR [@ostrovskyParabolicPatternAnimal1995; @sigourneySizeindependentGrowthFishes2008]. We recorded the reasons why a paper was not included in our sample and the number of papers that we examined each year to reach 30 included papers. For papers included in our sample we recorded whether the correct, typical, or some other equation was used for the SGR; the reference (if any) provided for the SGR equation used; whether lengths or weights were used in the SGR; units reported for the SGR; and whether the SGR was used primarily in the context of an aquaculture or ecological study. For papers where either the correct or typical equation was not used, we recorded whether it appeared that the authors used the typical equation but presented it with typographical errors (e.g., missing or mismatched parentheses), did not multiply by 100 (i.e., presented as a proportion rather than a percentage), or did not use logarithms, or they appeared to use some other equation that was not at all similar to the typical SGR equation.
+
+## Statistical analyses
+We estimated the proportion of papers per year that did not meet our inclusion criterion with $p_{i}=\frac{n_{i}-30}{n_{i}}$, where $n_{i}$ is the total number of papers we examined in year $i$. We then estimated the total number of papers returned by GS that would have met our inclusion criterion with $N_{i}^{*}=N_{i}p_{i}$, where $N_{i}$ is the total number of results returned by GS. We used simple linear regression models to examine linear trends in either $N_{i}$ or $N_{i}^{*}$ from 2009 to 2018. Confidence intervals for percentages computed from binomial results (e.g., XXX) were computed with the method of @wilsonProbableInferenceLaw1927 as suggested by @agrestiApproximateBetterExact1998, whereas those computed from multinomial results (e.g., XXX) used the method of @mayConstructingTwosidedSimultaneous2000. All statistical analyses were conducted in the R environment [@rcoreteamLanguageEnvironmentStatistical2019] and using binom.wilson() of the epitools package [@aragonEpitoolsEpidemiologyTools2017] and multinomialCi() from the multinomialCI package [@villacortaMultinomialCISimultaneousConfidence2012]. Significance was determined when $p$<0.05 and 95% confidence was used when presenting confidence intervals (CI).
+
+
+# Results
+## Rate of SGR usage in fisheries literature
+```{r SearchHitResults, echo=FALSE, message=FALSE, results='hide'}
+## Read SeachHits data with some cleaning and renaming
+SearchHits <- readr::read_csv(paste0(wdir,"/data/SearchHits.csv")) %>%
+  dplyr::select(-date,-`Other Notes`) %>%
+  dplyr::rename(`GS Returns`=hits) %>%
+  ## Compute percent useable citations as 30 divided by the number of articles
+  ## examined to get to thirty that met our inclusion criterion. Use this to
+  ## estimate the total number of returned articles that would have met our
+  ## inclusion criterion
+  dplyr::mutate(percUseable=30/num2get30*100,
+         `Est. Returns`=round(`GS Returns`*percUseable/100,0)) %>%
+  as.data.frame()
+
+## Regression of GoogleScholar results vs year
+gs_inc <- lm(`GS Returns`~year,data=SearchHits)
+sum_gs_inc <- summary(gs_inc)
+pval_gs_inc <- sum_gs_inc$coefficients["year","Pr(>|t|)"]
+slp_gs_inc <- coef(gs_inc)["year"]
+cislp_gs_inc <- confint(gs_inc)["year",]
+
+## Regression of estimated total number of articles that would meet our inclusion
+## criterion vs. year
+er_inc <- lm(`Est. Returns`~year,data=SearchHits)
+sum_er_inc <- summary(er_inc)
+pval_er_inc <- sum_er_inc$coefficients["year","Pr(>|t|)"]
+slp_er_inc <- coef(er_inc)["year"]
+cislp_er_inc <- confint(er_inc)["year",]
+
+## Range of GS articles returned that met inclusion criterion
+minPU <- min(SearchHits$percUseable)
+minPUyr <- SearchHits$year[SearchHits$percUseable==minPU]
+maxPU <- max(SearchHits$percUseable)
+maxPUyr <- SearchHits$year[SearchHits$percUseable==maxPU]
+
+## Read the data that indicates why the articles were not included
+noSGR <- readr::read_csv(paste0(wdir,"/","data/noSGR.csv")) %>%
+  ## Create a new variable with fewer reasons
+  mutate(whyNotUsed2=FSA::mapvalues(whyNotUsed,
+                                    from=c("not fish","no access","no SGR",
+                                           "no SGR eqn","not English","not focus",
+                                           "not peer-reviewed",
+                                           "presentation abstract",
+                                           "review paper","used mass-specific SGR"),
+                                    to=c("not fish","no access","no SGR",
+                                         "other","no access","other",
+                                         "not peer-reviewed","other","other","other")),
+         whyNotUsed=factor(whyNotUsed),
+         whyNotUsed=relevel(whyNotUsed,"not fish"),
+         whyNotUsed2=factor(whyNotUsed2,levels=c("not fish","no SGR",
+                                                 "no access","not peer-reviewed",
+                                                 "other")))
+
+## Compute percentage of reasons why not included by year
+whyNot_t1 <- addmargins(xtabs(~whyNotUsed+year,data=noSGR),margin=2)
+whyNot_p1 <- round(100*prop.table(whyNot_t1,margin=2),1)
+```
+
+The total number of articles returned by GS that met our search criteria increased significantly (`r FSA::kPvalue(pval_gs_inc)`) from `r SearchHits[1,2]` articles in 2009 to `r SearchHits[10,2]` articles in 2018, an average increase of `r RES(slp_gs_inc,0)` (CI:`r RES(cislp_gs_inc[[1]],0)`-`r RES(cislp_gs_inc[[2]],0)`) articles per year (`r figures("SearchHits",display="cite")`). Between `r RES(100-maxPU,1)`% (in `r maxPUyr`) and `r RES(100-minPU,1)`% (in `r minPUyr`) of GoogleScholar results per year did not meet our inclusion criterion. The primary reason for not being included was because the article did not meet our seach criterion of being about fish (`r RES(whyNot_p1["not fish","Sum"],1)`% of excluded articles) or about SGR (`r RES(whyNot_p1["no SGR","Sum"],1)`%). An additional `r RES(whyNot_p1["no SGR eqn","Sum"],1)`% were excluded because the article did no present the SGR equation. The total number of articles that would have met our inclusion criteria increased significantly (`r FSA::kPvalue(pval_er_inc)`) from `r SearchHits[1,5]` in 2009 to `r SearchHits[10,5]` in 2018, an average increase of `r RES(slp_er_inc,0)` (CI:`r RES(cislp_er_inc[[1]],0)`-`r RES(cislp_er_inc[[2]],0)`) articles per year (`r figures("SearchHits",display="cite")`).
+
+```{r SearchHitGraphs, echo=FALSE, results='hide', fig.height=3.5, fig.width=4}
+## Convert wide format to long format data for ease of plotting below 
+SearchHits2 <- SearchHits %>%
+  select(year,`GS Returns`,`Est. Returns`) %>%
+  tidyr::gather("type","returns",2:3) %>%
+  mutate(type=factor(type,levels=c("GS Returns","Est. Returns")))
+
+## Create the figure caption
+figures(name="SearchHits",
+        caption=paste("Number of articles returned from a GoogleScholar search",
+                      "using 'specific growth rate' AND fish and the estimated",
+                      "number of articles that met our inclusion criteria by",
+                      "year from 2009-2018."))
+
+## Plot of search results versus year
+SH1 <- ggplot(data=SearchHits2,aes(x=year,y=returns,group=type)) +
+  geom_line(size=1,aes(linetype=type)) +
+  geom_point(size=2.5,pch=21,bg="white") +
+  scale_y_continuous(name="Number of Articles",
+                     limits=c(0,NA),expand=expand_scale(mult=c(0,0.03))) +
+  scale_x_continuous(name="Publication Year",
+                     breaks=seq(2009,2018,2),
+                     minor_breaks=seq(2009,2018,1),
+                     expand=expand_scale(mult=0.04)) +
+  theme_SGR +
+  theme(legend.position=c(0.75,0.15),
+        legend.title=element_blank(),
+        legend.text=element_text(size=10),
+        legend.spacing.x=unit(5,"points"))
+SH1
+```
+
+`r figures("SearchHits")`
+
+## Characteristics of SGR usage
+```{r SGRData, echo=FALSE, message=FALSE, results='hide'}
+## Read and prepare data
+SGR <- readr::read_csv(paste0(wdir,"/data/SGR.csv")) %>%
+  mutate(eqnused=NA_character_,
+         eqnused=ifelse(correqn=="Y","correct",eqnused),
+         eqnused=ifelse(stdeqn=="Y","typical",eqnused),
+         eqnused=ifelse(alteqnExplan %in% c("likely typo",
+                                            "not multiplied by 100","no logs"),
+                        paste("typical, but",alteqnExplan),eqnused),
+         eqnused=ifelse(alteqnExplan %in% c("something else"),"something else",
+                        eqnused),
+         eqnused=factor(eqnused,levels=c("correct","typical",
+                                         "typical, but likely typo",
+                                         "typical, but not multiplied by 100",
+                                         "typical, but no logs",
+                                         "something else")),
+         eqnref=factor(FSA::mapvalues(eqnref,from="N",to="None")),
+         eqnref=relevel(eqnref,"None"),
+         lenwt=factor(lenwt,levels=c("W","L","both")),
+         logbase=FSA::mapvalues(logbase,
+                                from=c("10.0","e","unsure"),
+                                to=c("10","e","unsure")),
+         logbase=factor(logbase,levels=c("e","10","unsure")),
+         units2=factor(FSA::mapvalues(units,
+                          from=c("% bw/day","% mass/day","% weight/day",
+                                 "% WM/day"),
+                          to=c("% W/day","% W/day","% W/day","% W/day"))),
+         units2=relevel(units2,"%/day")) %>%
+  as.data.frame()
+```
+
+```{r SGRUseCharacteristics, echo=FALSE, message=FALSE, results='hide'}
+## Context results
+tblContext <- xtabs(~context,data=SGR)
+( ptblContext <- 100*cbind(A=prop.table(tblContext)[["A"]],
+                           binCI(tblContext["A"],sum(tblContext),type="wilson")) )
+## Length or weight usage
+tblLW <- xtabs(~lenwt,data=SGR)
+( ptblLW <- 100*cbind(W=prop.table(tblLW)[["W"]],
+                      binCI(tblLW["W"],sum(tblLW),type="wilson")) )
+## Equation usage rates
+( tblEqnUse <- addmargins(xtabs(~eqnused+year,data=SGR),margin=2) )
+( ciEqnUse <- 100*DescTools::MultinomCI(tblEqnUse[,"Sum"],method="wilson"))
+
+## Correct papers
+SGRcorrect <- filter(SGR,correqn=="Y") %>%
+  droplevels()
+( SGRcorrRefs <- xtabs(~eqnref,data=SGRcorrect) )
+
+## Incorrect papers
+SGRincorrect <- filter(SGR,correqn=="N") %>%
+  droplevels()
+( SGRincorrRefs <- xtabs(~eqnref,data=SGRincorrect) ) ## Did not use
+( SGRincorrUnits <- xtabs(~units2,data=SGRincorrect) )
+( ptblNoUnits <- 100*cbind(NONE=sum(prop.table(SGRincorrUnits)[c("none","unsure")]),
+                      binCI(sum(SGRincorrUnits[c("none","unsure")]),
+                            sum(SGRincorrUnits),type="wilson")) )
+SGRincorrect2 <- SGRincorrect %>%
+  filter(!units2 %in% c("none","unsure")) %>%
+  mutate(units3=mapvalues(units2,from=c("% W/day","/day","cm","g","g/day/%",
+                                        "g/Kg/day","g/mm","mm","mm/mg"),
+                          to=rep("other",9))) %>%
+  droplevels()
+( SGRincorrUnits2 <- xtabs(~units3,data=SGRincorrect2) )
+( ciSGRincorrUnits2 <- 100*DescTools::MultinomCI(SGRincorrUnits2,method="wilson"))
+
+```
+
+The vast majority of papers that used SGR were related to aquaculture (`r RES(ptblContext[1,"A"],1)`%; CI: `r RES(ptblContext[1,"95% LCI"],1)`-`r RES(ptblContext[1,"95% UCI"],1)`%) as compared to general fish ecology, and used weight (`r RES(ptblLW[1,"W"],1)`%; CI: `r RES(ptblLW[1,"95% LCI"],1)`-`r RES(ptblLW[1,"95% UCI"],1)`%) rather than length as the measure of size. Only `r sum(tblEqnUse["correct","Sum"])` of the `r sum(tblEqnUse[,"Sum"])` papers (`r RES(ciEqnUse["correct","est"],1)`%; CI: `r RES(ciEqnUse["correct","lwr.ci"],1)`-`r RES(ciEqnUse["correct","upr.ci"],1)`%) that we examined from 2009 to 2018 used the correct equation for SGR, all of which used the correct units of %/day. `r kCounts(sum(SGRcorrRefs[names(SGRcorrRefs)!="None"]),capitalize=TRUE)` of the `r sum(tblEqnUse["correct","Sum"])` papers that used the correct equation for SGR provided a reference for the equation, with `r kCounts(SGRcorrRefs["Houde and Schekter (1981)"])` citing @houdeGrowthRateRations1981 and `r kCounts(SGRcorrRefs["Ricker (1975)"])` citing @rickerComputationInterpretationBiological1975. The typical SGR equation was used in `r RES(ciEqnUse["typical","est"],1)`% (CI: `r RES(ciEqnUse["typical","lwr.ci"],1)`-`r RES(ciEqnUse["typical","upr.ci"],1)`%) of the papers. Additional papers appeared to attempt to use the typical equation, but `r RES(ciEqnUse["typical, but likely typo","est"],1)`% (CI: `r RES(ciEqnUse["typical, but likely typo","lwr.ci"],1)`-`r RES(ciEqnUse["typical, but likely typo","upr.ci"],1)`%) presented the equation with a likely typographical error, `r RES(ciEqnUse["typical, but not multiplied by 100","est"],1)`% (CI: `r RES(ciEqnUse["typical, but not multiplied by 100","lwr.ci"],1)`-`r RES(ciEqnUse["typical, but not multiplied by 100","upr.ci"],1)`%) did not multiply by 100, and `r RES(ciEqnUse["typical, but no logs","est"],1)`% (CI: `r RES(ciEqnUse["typical, but no logs","lwr.ci"],1)`-`r RES(ciEqnUse["typical, but no logs","upr.ci"],1)`%) did not use logarithms. Of the `r sum(SGRincorrUnits)` papers that did not use the correct SGR equation, `r RES(ptblNoUnits[1,"NONE"],1)`% (CI: `r RES(ptblNoUnits[1,"95% LCI"],1)`-`r RES(ptblNoUnits[1,"95% UCI"],1)`%) either did not present units for the SGR or different units appeared throughout the paper. Of the `r sum(SGRincorrUnits2)` papers that did not use the correction SGR equation and provided consistent units for the SGR, `r RES(ciSGRincorrUnits2["%/day","est"],1)`% (CI: `r RES(ciSGRincorrUnits2["%/day","lwr.ci"],1)`-`r RES(ciSGRincorrUnits2["%/day","upr.ci"],1)`%) used %/day and `r RES(ciSGRincorrUnits2["%","est"],1)`% (CI: `r RES(ciSGRincorrUnits2["%","lwr.ci"],1)`-`r RES(ciSGRincorrUnits2["%","upr.ci"],1)`%) used %, with the remaining `r RES(ciSGRincorrUnits2["other","est"],1)`% (CI: `r RES(ciSGRincorrUnits2["other","lwr.ci"],1)`-`r RES(ciSGRincorrUnits2["other","upr.ci"],1)`%) of papers using a variety of incorrect units.
+
+
+# Discussion
+XXX WILL BE MORE HERE XXX
+
+
+######### Conflict of interest
+Authors declare they have no conflict of interest.
+
+
+######### Acknowledgments
+XXX WILL BE MORE HERE XXX
+
+
+######### References
