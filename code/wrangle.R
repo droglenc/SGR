@@ -67,5 +67,8 @@ noSGR <- select(noSGR,-(SGR:context)) %>%
 
 ## Write Data files ----
 write.csv(SearchHits,"data/SearchHits.csv",row.names=FALSE,quote=FALSE)
+message("'SearchHits.csv' written.")
 write.csv(SGR,"data/SGR.csv",row.names=FALSE)
+message("'SGR.csv' written.")
 write.csv(noSGR,"data/noSGR.csv",row.names=FALSE)
+message("'noSGR.csv' written.")

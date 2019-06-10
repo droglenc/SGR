@@ -1,0 +1,187 @@
+---
+title: "SGR Methods Results"
+author: "Ogle"
+date: "6/7/2019"
+output: word_document
+---
+
+```{r setup, echo=FALSE, include=FALSE, message=FALSE}
+## Must run wrangle.R script prior to this to retrieve the data from
+## GoogleScholar and wrangle it into the needed format which is printed out to
+## the CSV files that are read in the chunks below. You can run wrangle.R with
+##   source(paste0(here::here(),"/code/wrangle.R"))
+knitr::opts_chunk$set(echo = TRUE)
+library(FSA)
+library(dplyr)
+library(ggplot2)
+library(patchwork)
+library(captioner)
+wdir <- here::here()
+source(paste0(wdir,"/","code/GGTHEME.R"))
+figures <- captioner::captioner(prefix="Figure")
+```
+
+## Methods
+
+We reviewed the fisheries literature to determine the extent to which SGR is used, the rate at which the SGR approximation and the true SGR equations are used, and other characteristics related to the use of SGR (described below). To estimate the overall use of SGR, we recorded the number of results returned by GoogleScholarTM using the search criteria ‘”specific growth rate” AND fish’ for each year from 2009 to 2018. We then obtained a sample of approximately 1000 results each year from this search using PublishOrPerishTM (). To reduce any bias related to GoogleScholar’s search algorithm, we randomized the results from each year and then examined as many results as needed to obtain a sample of 30 results per year that met the following criteria. To be included in our sample, a result must be a journal article (i.e., a "paper), be electronically accessible to us via the internet or our library subscriptions, be written in English, be peer-reviewed, not be a synthetic review, specifically mention “specific growth rate” or “SGR” and have SGR be a substantive portion of the paper, be about fish (shellfish were excluded), provide the specific SGR equation, and not use the mass-specific SGR (). We recorded the reasons why a paper was not included in our sample and the number of papers that were read each year to reach 30 included papers. For papers included in our sample we recorded whether the standard SGR was used, the equation provided if the standard equation was not provided, the reference (if any) provided for the standard equation, whether lengths or weights were used in the SGR, units reported for the SGR, base of logarithm used for the SGR, and whether the SGR was used primarily in the context of an aquaculture or ecological study. For papers where either the correct or standard equation was not used, we recorded whether it appeared that the authors used the standard equation but it was presented with a typographical error (e.g., missing or mismatched parentheses), was not multiplied by 100 (i.e., presented as a proportion rather than a percentage), or did not use logarithms or was some other equation that was not at all similar to the standard equation.
+
+We estimated the proportion of papers per year that did not meet our inclusion criterion with $p_{i}=\frac{n_{i}-30}{n_{i}}$, where $n_{i}$ is the total number of papers we examined in year $i$. We then estimated the total number of papers returned by GoogleScholar that would have met our inclusion criterion with $N_{i}^{*}=N_{i}p_{i}$, where $N_{i}$ is the total number of papers returned by GoogleScholar. We used simple linear regression models to examine linear trends in either $N_{i}$ or $N_{i}^{*}$ from 2009 to 2018. Confidence intervals for percentages computed from binomial results (e.g., XXX) were computed with the method of Wilson (1927) as suggested by Agresti and Coull (1998) and implemented in binom.wilson() of the epitools package (Aragon 2017), whereas those computed from multinomial results (e.g., XXX) used the method of May and Johnson (2000) as implemented in multinomialCi() from the multinomialCI package (Villacorta 2012) in R.
+
+
+## Results
+```{r SearchHitResults, echo=FALSE, message=FALSE, results='hide'}
+## Read SeachHits data with some cleaning and renaming
+SearchHits <- readr::read_csv(paste0(wdir,"/data/SearchHits.csv")) %>%
+  dplyr::select(-date,-`Other Notes`) %>%
+  dplyr::rename(`GS Returns`=hits) %>%
+  ## Compute percent useable citations as 30 divided by the number of articles
+  ## examined to get to thirty that met our inclusion criterion. Use this to
+  ## estimate the total number of returned articles that would have met our
+  ## inclusion criterion
+  dplyr::mutate(percUseable=30/num2get30*100,
+         `Est. Returns`=round(`GS Returns`*percUseable/100,0)) %>%
+  as.data.frame()
+
+## Regression of GoogleScholar results vs year
+gs_inc <- lm(`GS Returns`~year,data=SearchHits)
+sum_gs_inc <- summary(gs_inc)
+pval_gs_inc <- sum_gs_inc$coefficients["year","Pr(>|t|)"]
+slp_gs_inc <- coef(gs_inc)["year"]
+cislp_gs_inc <- confint(gs_inc)["year",]
+
+## Regression of estimated total number of articles that would meet our inclusion
+## criterion vs. year
+er_inc <- lm(`Est. Returns`~year,data=SearchHits)
+sum_er_inc <- summary(er_inc)
+pval_er_inc <- sum_er_inc$coefficients["year","Pr(>|t|)"]
+slp_er_inc <- coef(er_inc)["year"]
+cislp_er_inc <- confint(er_inc)["year",]
+
+## Range of GS articles returned that met inclusion criterion
+minPU <- min(SearchHits$percUseable)
+minPUyr <- SearchHits$year[SearchHits$percUseable==minPU]
+maxPU <- max(SearchHits$percUseable)
+maxPUyr <- SearchHits$year[SearchHits$percUseable==maxPU]
+
+## Read the data that indicates why the articles were not included
+noSGR <- readr::read_csv(paste0(wdir,"/","data/noSGR.csv")) %>%
+  ## Create a new variable with fewer reasons
+  mutate(whyNotUsed2=FSA::mapvalues(whyNotUsed,
+                                    from=c("not fish","no access","no SGR",
+                                           "no SGR eqn","not English","not focus",
+                                           "not peer-reviewed",
+                                           "presentation abstract",
+                                           "review paper","used mass-specific SGR"),
+                                    to=c("not fish","no access","no SGR",
+                                         "other","no access","other",
+                                         "not peer-reviewed","other","other","other")),
+         whyNotUsed=factor(whyNotUsed),
+         whyNotUsed=relevel(whyNotUsed,"not fish"),
+         whyNotUsed2=factor(whyNotUsed2,levels=c("not fish","no SGR",
+                                                 "no access","not peer-reviewed",
+                                                 "other")))
+
+## Compute percentage of reasons why not included by year
+whyNot_t1 <- addmargins(xtabs(~whyNotUsed+year,data=noSGR),margin=2)
+whyNot_p1 <- round(100*prop.table(whyNot_t1,margin=2),1)
+```
+
+The total number of articles returned by GoogleScholar that met our search criteria increased significantly (`r FSA::kPvalue(pval_gs_inc)`) from `r SearchHits[1,2]` articles in 2009 to `r SearchHits[10,2]` articles in 2018, an average increase of `r formatC(slp_gs_inc,format="f",digits=1)` (95% CI:`r formatC(cislp_gs_inc[[1]],format="f",digits=1)`-`r formatC(cislp_gs_inc[[2]],format="f",digits=1)`) articles per year (`r figures("SearchHits",display="cite")`). Between `r formatC(100-maxPU,format="f",digits=1)`% (in `r maxPUyr`) and `r formatC(100-minPU,format="f",digits=1)`% (in `r minPUyr`) of GoogleScholar results per year did not meet our inclusion criterion. The primary reason for not being included was because the article did not meet our seach criterion of being about fish (`r formatC(whyNot_p1["not fish","Sum"],format="f",digits=1)`% of excluded articles) or about SGR (`r formatC(whyNot_p1["no SGR","Sum"],format="f",digits=1)`%). Additionally `r formatC(whyNot_p1["no SGR eqn","Sum"],format="f",digits=1)`% were excluded because the article did no present the SGR equation. The total number of articles that would have met our inclusion criteria increased significantly (`r FSA::kPvalue(pval_er_inc)`) from `r SearchHits[1,5]` in 2009 to `r SearchHits[10,5]` in 2018, an average increase of `r formatC(slp_er_inc,format="f",digits=1)` (95% CI:`r formatC(cislp_er_inc[[1]],format="f",digits=1)`-`r formatC(cislp_er_inc[[2]],format="f",digits=1)`) articles per year (`r figures("SearchHits",display="cite")`).
+
+```{r SearchHitGraphs, echo=FALSE, results='hide', fig.height=4.5, fig.width=5}
+## Convert wide format to long format data for ease of plotting below 
+SearchHits2 <- SearchHits %>%
+  select(year,`GS Returns`,`Est. Returns`) %>%
+  tidyr::gather("type","returns",2:3) %>%
+  mutate(type=factor(type,levels=c("GS Returns","Est. Returns")))
+
+## Create the figure caption
+figures(name="SearchHits",
+        caption=paste("Number of articles returned from a GoogleScholar search",
+                      "using 'specific growth rate' AND fish and the estimated",
+                      "number of articles that met our inclusion criteria by",
+                      "year from 2009-2018."))
+
+## Plot of search results versus year
+SH1 <- ggplot(data=SearchHits2,aes(x=year,y=returns,group=type)) +
+  geom_line(size=1,aes(linetype=type)) +
+  geom_point(size=2.5,pch=21,bg="white") +
+  scale_y_continuous(name="Number of Articles",
+                     limits=c(0,NA),expand=expand_scale(mult=c(0,0.03))) +
+  scale_x_continuous(name="Publication Year",
+                     breaks=seq(2009,2018,2),
+                     minor_breaks=seq(2009,2018,1),
+                     expand=expand_scale(mult=0.04)) +
+  theme_SGR +
+  theme(legend.position=c(0.8,0.1),
+        legend.title=element_blank(),
+        legend.text=element_text(size=13),
+        legend.spacing.x=unit(5,"points"))
+SH1
+```
+
+`r figures("SearchHits")`
+
+```{r SGRUseResults, echo=FALSE, message=FALSE, results='hide'}
+## Read and prepare data
+SGR <- readr::read_csv(paste0(wdir,"/data/SGR.csv")) %>%
+  mutate(eqnused=NA_character_,
+         eqnused=ifelse(correqn=="Y","correct",eqnused),
+         eqnused=ifelse(stdeqn=="Y","typical",eqnused),
+         eqnused=ifelse(alteqnExplan %in% c("likely typo",
+                                            "not multiplied by 100","no logs"),
+                        paste("typical, but",alteqnExplan),eqnused),
+         eqnused=ifelse(alteqnExplan %in% c("something else"),"something else",
+                        eqnused),
+         eqnused=factor(eqnused,levels=c("correct","typical",
+                                         "typical, but likely typo",
+                                         "typical, but not multiplied by 100",
+                                         "typical, but no logs",
+                                         "something else")),
+         eqnref=factor(FSA::mapvalues(eqnref,from="N",to="None")),
+         eqnref=relevel(eqnref,"None"),
+         lenwt=factor(lenwt,levels=c("W","L","both")),
+         logbase=FSA::mapvalues(logbase,
+                                from=c("10.0","e","unsure"),
+                                to=c("10","e","unsure")),
+         logbase=factor(logbase,levels=c("e","10","unsure")),
+         units2=factor(FSA::mapvalues(units,
+                          from=c("%","% bw/day","% mass/day","% weight/day",
+                                 "% WM/day","%/day","/day","g/day/%",
+                                 "none","unsure"),
+                          to=c("%","% W/day","% W/day","% W/day",
+                               "% W/day","%/day","/day","g/day/%",
+                               "none","unsure"))),
+         units2=relevel(units2,"%/day")) %>%
+  as.data.frame()
+
+## Equation usage rates
+( tblEqnUse <- addmargins(xtabs(~eqnused+year,data=SGR),margin=2) )
+( ciEqnUse <- 100*DescTools::MultinomCI(tblEqnUse[,"Sum"],method="wilson"))
+
+## Correct papers
+SGRcorrect <- filter(SGR,correqn=="Y") %>%
+  droplevels()
+( SGRcorrRefs <- xtabs(~eqnref,data=SGRcorrect) )
+xtabs(~units,data=SGRcorrect)   # did not use
+xtabs(~Source,data=SGRcorrect)  # did not use
+
+## Incorrect papers
+SGRincorrect <- filter(SGR,correqn=="N") %>%
+  droplevels()
+```
+
+Only `r sum(tblEqnUse["correct","Sum"])` of the `r sum(tblEqnUse[,"Sum"])` papers (`r formatC(ciEqnUse["correct","est"],format="f",digits=1)`%; 95% CI: `r formatC(ciEqnUse["correct","lwr.ci"],format="f",digits=1)`%-`r formatC(ciEqnUse["correct","upr.ci"],format="f",digits=1)`%) that we examined from 2009 to 2018 used the correct equation for SGR, all of which used the correct units of %/day. `r kCounts(sum(SGRcorrRefs[names(SGRcorrRefs)!="None"]),capitalize=TRUE)` of the `r sum(tblEqnUse["correct","Sum"])` papers that used the correct equation for SGR provided a reference for the equation, with `r kCounts(SGRcorrRefs["Houde and Schekter (1981)"])` citing Houde and Schekter (1981) and `r kCounts(SGRcorrRefs["Ricker (1975)"])` citing Ricker (1975). Of the `r sum(tblEqnUse[-1,"Sum"])` papers that did not use the correct equation of SGR, `r tblEqnUse["typical","Sum"]` (`r formatC(ciEqnUse["typical","est"],format="f",digits=1)`%; 95% CI: `r formatC(ciEqnUse["typical","lwr.ci"],format="f",digits=1)`%-`r formatC(ciEqnUse["typical","upr.ci"],format="f",digits=1)`%) used the standard equation. Additional papers appeared to attempt to use the standard equation, but either presented the equation with a likely typographical error (`r formatC(ciEqnUse["typical, but likely typo","est"],format="f",digits=1)`%; 95% CI: `r formatC(ciEqnUse["typical, but likely typo","lwr.ci"],format="f",digits=1)`%-`r formatC(ciEqnUse["typical, but likely typo","upr.ci"],format="f",digits=1)`%), did not multiply by 100 (`r formatC(ciEqnUse["typical, but not multiplied by 100","est"],format="f",digits=1)`%; 95% CI: `r formatC(ciEqnUse["typical, but not multiplied by 100","lwr.ci"],format="f",digits=1)`%-`r formatC(ciEqnUse["typical, but not multiplied by 100","upr.ci"],format="f",digits=1)`%), or did not use logarithms (`r formatC(ciEqnUse["typical, but no logs","est"],format="f",digits=1)`%; 95% CI: `r formatC(ciEqnUse["typical, but no logs","lwr.ci"],format="f",digits=1)`%-`r formatC(ciEqnUse["typical, but no logs","upr.ci"],format="f",digits=1)`%).
+
+
+## References
+Agresti, A. and B.A. Coull. 1998. Approximate is better than “exact” for interval estimation of binomial proportions. American Statistician 52:119-126.
+
+Aragon, T.J. 2017. epitools: Epidemiology tools. R package v0.5-10.
+
+May, W.L. and W.D. Johnson. 2000. Constructing two-sided simultaneous confidence intervals for multinomial proportions for small counts in a large number of cells. Journal of Statistical Software 5(6).
+
+Villacorta, P.J. 2012. MultinomialCI: Simultaneous confidence intervals for multinomial proportions
+according to the method by Sison and Glaz. R package v1.0
+
+Wilson, E.B. 1927. Probable inference, the law of succession, and statistical inference. Journal of the American Statistical Association 22:209-212.

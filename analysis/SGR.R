@@ -12,24 +12,7 @@ setwd(here::here())
 library(dplyr)
 source("code/GGTHEME.R")
 
-SGR <- readr::read_csv("data/SGR.csv") %>%
-  mutate(stdeqn=factor(stdeqn,levels=c("Y","N")),
-         eqnref=factor(FSA::mapvalues(eqnref,from="N",to="None")),
-         eqnref=relevel(eqnref,"None"),
-         lenwt=factor(lenwt,levels=c("W","L","both")),
-         logbase=FSA::mapvalues(logbase,
-                                from=c("10.0","e","unsure"),
-                                to=c("10","e","unsure")),
-         logbase=factor(logbase,levels=c("e","10","unsure")),
-         units2=factor(FSA::mapvalues(units,
-                          from=c("%","% bw/day","% mass/day","% weight/day",
-                                 "% WM/day","%/day","/day","g/day/%",
-                                 "none","unsure"),
-                          to=c("%","% W/day","% W/day","% W/day",
-                               "% W/day","%/day","/day","g/day/%",
-                               "none","unsure"))),
-         units2=relevel(units2,"%/day")
-         )
+
 
 
 ## Summary Tables ----
