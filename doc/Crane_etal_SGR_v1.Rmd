@@ -4,23 +4,26 @@ author: ""
 date: ""
 output:
   word_document: 
-    reference_docx: Word_Style.docx
-    pandoc_args: [--filter, pandoc-crossref]
-csl: aquaculture.csl
+    reference_docx: RAQ_doublespace_Style.docx
+csl: conservation-biology.csl
 bibliography: SGR_paper.bib
 ---
 
 ```{r notes, echo=FALSE, eval=FALSE}
 #* one and two hashtags demark the first two levels of headings
-#* three hashtags were used to make a heading without a number
+#* three hashtags ... same as one hashtag for RAQ (was different for Aquaculture)
 #* four hashtags ...
 #* five and six hashtags were used for authors
 #* seven hastags were used for lines like keywords and running title
 #* eight hashtags was used to make a comment box. 
 #* nine hashtags makes a pagebreak
-#* Scientific names in bibliography will be mis-capitalized
 
-#* Had to put pandoc-crossref into RStudio's pandoc folder
+#* Scientific names in bibliography will be mis-capitalized
+#* Paragraphs should be indented, but this was problematic after equations
+
+#* Had to put pandoc-crossref into RStudio's pandoc folder and add
+#*  pandoc_args: [--filter, pandoc-crossref] to YAML when equations were
+#*  numbered, which is no longer the case.
 ```
 
 ```{r setup, echo=FALSE, include=FALSE, message=FALSE}
@@ -44,7 +47,7 @@ RES <- function(x,digits=1) formatC(x,format="f",digits=digits)
 ###### Department of Biology, Coastal Carolina University, 107 Chanticleer Drive East, Conway, South Carolina, USA 29526; email: dcrane@coastal.edu; phone: (843) 349-4065
 
 ##### Derek H. Ogle
-###### Department of Mathmatical Sciences and Department of Natural Resources, Northland College
+###### Department of Mathematical Sciences and Department of Natural Resources, Northland College
 
 ##### Daniel E. Shoup
 ###### Department of Natural Resource Ecology and Management, Oklahoma State University
@@ -64,27 +67,22 @@ RES <- function(x,digits=1) formatC(x,format="f",digits=digits)
 #########
 
 # Introduction
-Growth is one of the most commonly calculated vital rates in aquaculture and fisheries management.  Growth is often related to the other vital rates, survival [@postSizedependentOverwinterMortality1989; @olsonPredatorpreyInteractionsSizestructured1996; @garveyOverwinterGrowthSurvival1998] and fecundity [@danylchukAgeSizedependentVariation1994; @michaletzEffectBodySize1998], and is a critical component determining yield from a fishery [@rickerComputationInterpretationBiological1975]. Fish growth is of great interest to production aquaculture and commercial fisheries management because of its importance to yield, and to sportfish management because if its impact on population size structure. Growth is the net result of energy intake and expenditure and, as such, is usually influenced by environmental conditions such as prey availability [@hoxmeierGrowthSurvivalAge02006; @michaletzTemperaturePlanktonConspecific2014; @craneChangesGrowthDiet2016], predation risk [@shoupEffectsPredationRisk2003; @westerbergInfluencePredationRisk2004], turbidity [@tomckoRelationshipBluegillGrowth2001; @shoupEffectsTurbidityPrey2015], temperature [@michaletzTemperaturePlanktonConspecific2014; @weberMetabolicTheoryExplains2015], and water chemistry [@tomckoRelationshipBluegillGrowth2001; @shoupSizespecificGrowthBluegill2007]. Growth can be expressed in many ways (e.g., relative growth, instantaneous growth, size-specific growth), but all growth metrics requires knowledge of the size of fish at two or more points in time, either from direct or indirect (e.g., back calculation, modeling mean length at age, etc.) measurements [@shoupGrowthEstimationSummarization2017]. The time interval between size measurements can range from days to decades depending on the species and question of interest.
+Growth is one of the most commonly calculated vital rates in aquaculture and fisheries management.  Growth is often related to the other vital rates, survival [@postSizedependentOverwinterMortality1989; @olsonPredatorpreyInteractionsSizestructured1996; @garveyOverwinterGrowthSurvival1998], and fecundity [@danylchukAgeSizedependentVariation1994; @michaletzEffectBodySize1998], and is a critical component determining yield from a fishery [@rickerComputationInterpretationBiological1975]. Fish growth is of great interest to production aquaculture and commercial fisheries management because of its importance to yield, and to sportfish management because of its impact on population size structure. Growth is the net result of energy intake and expenditure and, as such, is usually influenced by environmental conditions such as prey availability [@hoxmeierGrowthSurvivalAge02006; @michaletzTemperaturePlanktonConspecific2014; @craneChangesGrowthDiet2016], predation risk [@shoupEffectsPredationRisk2003; @westerbergInfluencePredationRisk2004], turbidity [@tomckoRelationshipBluegillGrowth2001; @shoupEffectsTurbidityPrey2015], temperature [@michaletzTemperaturePlanktonConspecific2014; @weberMetabolicTheoryExplains2015], and water chemistry [@tomckoRelationshipBluegillGrowth2001; @shoupSizespecificGrowthBluegill2007]. Growth can be expressed in many ways (e.g., relative growth, instantaneous growth, size-specific growth), but all growth metrics requires knowledge of the size of fish at two or more points in time, either from direct or indirect (e.g., back calculation, modeling mean length at age, etc.) measurements [@shoupGrowthEstimationSummarization2017]. The time interval between size measurements can range from days to decades depending on the species and question of interest.
 
-It is often assumed that weight of fish, especially small fish, increases exponentially over short periods of time (e.g., hours, days, weeks, or a few years). With this assumption, the instantaneous growth rate ($g$) is defined as
+It is often assumed that weight of fish, especially small fish, increases exponentially over short periods of time (e.g., hours, days, weeks, or a few years). With this assumption, instantaneous growth rate ($g$) is defined as
 
 $$g=\frac{\text{log}_{\text{e}}(w_{2})-\text{log}_{\text{e}}(w_{1})}{t_{2}-t_{1}}$$
 
-where $w_{2}$ and $w_{1}$ are fish weights at times $t_{2}$ and $t_{1}$ (with $t_{2} > t_{1}$), respectively. Instantaneous growth rates are difficult to interpret because the units for $g$ are log weight units per unit time [@elliottFunctionalRelationshipBody1995]. For this reason, $g$ may be converted to a specific growth rate (SGR) with
+where $w_{1}$ and $w_{2}$ are fish weights at times $t_{1}$ and $t_{2}$, respectively. Instantaneous growth rates are difficult to interpret because $g$ represents that change in log weight per unit time [@elliottFunctionalRelationshipBody1995]. For this reason, $g$ may be converted to a specific growth rate (SGR) with $G=100(\text{e}^{g}-1)$, which has units of percent per time unit (of weight). However, several widely-used texts [@busackerGrowth1990; @woottonEcologyTeleostFishes1990; @moyleFishesIntroductionIchthyoloy2004; @shoupGrowthEstimationSummarization2017], and highly-cited reviews and publications on growth of fishes [@hopkinsReportingFishGrowth1992; Cook et al., 2000; @lugertReviewFishGrowth2016] measured SGR with $G^{\text{*}}=100g$ and implicitly assumed that $G^{\text{*}}$ had the same units as $G$.
 
-$$G=100\cdot(\text{e}^{g}-1)$$
+######## Need the citation information for Cook et al. (2000) in Zotero
 
-which has units of percent per time unit (of weight). However, several widely used texts [@busackerGrowth1990; @woottonEcologyTeleostFishes1990; @moyleFishesIntroductionIchthyoloy2004; @shoupGrowthEstimationSummarization2017], and highly cited reviews on growth of fishes and research publications [@hopkinsReportingFishGrowth1992; Cook et al., 2000; @lugertReviewFishGrowth2016] measured SGR as
+Most critiques of SGR have focused on whether an exponential model is appropriate to describe fish growth [@dumasModellingGrowthBody2010; @lugertReviewFishGrowth2016], which we do not address here. Our objectives here, however, are to (1) demonstrate that $G^{\text{*}}$ is commonly used and $G$ is rarely used for estimating SGR in the fisheries literature and (2) illustrate how using $G^{\text{*}}$ instead of $G$ can lead to errors in interpretation. 
 
-$$G^{\text{*}}=100\cdot g$$
-
-and implicitly assumed that this had the same units as $g$.
-
-Most criticism of SGR has focused on whether or not an exponential model is an appropriate model to describe fish growth [thoroughly reviewed in @dumasModellingGrowthBody2010 and @lugertReviewFishGrowth2016)], which we will not address here. Our objectives here are to (1) demonstrate that $G^{\text{*}}$ is commonly used and $G$ is rarely used for estimating SGR in the fisheries literature and (2) illustrate how using $G^{\text{*}}$ instead of $G$ can lead to errors in interpretation. 
 
 # Literature review
 ## Paper selection and data extraction
-We reviewed the fisheries literature to determine the extent to which SGR is used, the rate at which the typical SGR (equation 1) and the correct SGR (equation 2) equations are used, and other characteristics related to the use of SGR (described below). To estimate the overall use of SGR, we recorded the number of results returned by GoogleScholar$^{\text{TM}}$ (hereafter, GS) using the search criteria ‘”specific growth rate” AND fish’ for each year from 2009 to 2018. We then obtained a sample of approximately 1000 results each year from this search using PublishOrPerish$^{\text{TM}}$ [@harzingPublishPerish2007]. To reduce any ranking bias related to the GS search algorithm, we randomized the results from each year and then examined as many results as needed to obtain a sample of 30 results per year that met the following criteria: a result must be a journal article (i.e., a "paper"), be electronically accessible to us via the internet or our library subscriptions, be written in English, be peer-reviewed, not be a synthetic review, specifically mention “specific growth rate” or “SGR” and have SGR be a substantive portion of the paper, be about fish (shellfish were excluded), provide the specific SGR equation, and not use the mass-specific SGR [@ostrovskyParabolicPatternAnimal1995; @sigourneySizeindependentGrowthFishes2008]. We recorded the reasons why a paper was not included in our sample and the number of papers that we examined each year to reach 30 included papers. For papers included in our sample we recorded whether the correct, typical, or some other equation was used for the SGR; the reference (if any) provided for the SGR equation used; whether lengths or weights were used in the SGR; units reported for the SGR; and whether the SGR was used primarily in the context of an aquaculture or ecological study. For papers where either the correct or typical equation was not used, we recorded whether it appeared that the authors used the typical equation but presented it with typographical errors (e.g., missing or mismatched parentheses), did not multiply by 100 (i.e., presented as a proportion rather than a percentage), or did not use logarithms, or they appeared to use some other equation that was not at all similar to the typical SGR equation.
+We reviewed the fisheries literature to determine the extent to which SGR is used, the rate at which $G$ and $G^{\text{*}}$ are used for SGR, and other characteristics related to the use of SGR (described below). To estimate the overall use of SGR, we recorded the number of results returned by GoogleScholar$^{\text{TM}}$ (hereafter, GS) using the search criteria ‘”specific growth rate” AND fish’ for each year from 2009 to 2018. We then used PublishOrPerish$^{\text{TM}}$ [@harzingPublishPerish2007] to efficiently obtain the specific citation information for a sample of approximately 1000 results each year from the GS search. To reduce possible ranking bias related to the GS search algorithm, we randomized the results from each year and then examined as many results as needed to obtain a sample of 30 results per year that met the following criteria: a result must be a journal article (i.e., a "paper"), be electronically accessible to us via the internet or our library subscriptions, be written in English, be peer-reviewed, not be a synthetic review, specifically mention “specific growth rate” or “SGR” and have SGR be a substantive portion of the paper, be about fish (shellfish were excluded), provide the specific SGR equation, and not use the mass-specific SGR [@ostrovskyParabolicPatternAnimal1995; @sigourneySizeindependentGrowthFishes2008]. We recorded the reasons why a paper was not included in our sample and the number of papers that we examined each year to reach 30 included papers. For papers included in our sample we recorded whether $G$, $G^{\text{*}}$, or some other equation was used for the SGR; the reference (if any) provided for the SGR equation used; whether lengths or weights were used in the SGR equation; units reported for the SGR; and whether SGR was used primarily in the context of an aquaculture or ecological study. For papers where either $G$ or $G^{\text{*}}$ was not used, we recorded whether it appeared that the authors attempted to use $G^{\text{*}}$ but presented it with typographical errors (e.g., missing or mismatched parentheses), did not multiply by 100 (i.e., used $g$), or did not use logarithms, or they appeared to use some other equation that was not at all similar to $G^{\text{*}}$.
 
 ## Statistical analyses
 We estimated the proportion of papers per year that did not meet our inclusion criterion with $p_{i}=\frac{n_{i}-30}{n_{i}}$, where $n_{i}$ is the total number of papers we examined in year $i$. We then estimated the total number of papers returned by GS that would have met our inclusion criterion with $N_{i}^{*}=N_{i}p_{i}$, where $N_{i}$ is the total number of results returned by GS. We used simple linear regression models to examine linear trends in either $N_{i}$ or $N_{i}^{*}$ from 2009 to 2018. Confidence intervals for percentages computed from binomial results (e.g., whether the paper had an aquaculture or ecological context) were computed with the method of @wilsonProbableInferenceLaw1927 as suggested by @agrestiApproximateBetterExact1998, whereas those computed from multinomial results (e.g., type of equation used) used the method of @mayConstructingTwosidedSimultaneous2000. All statistical analyses were conducted in the R environment [@rcoreteamLanguageEnvironmentStatistical2019] and using binom.wilson() of the epitools package [@aragonEpitoolsEpidemiologyTools2017] and multinomialCi() from the multinomialCI package [@villacortaMultinomialCISimultaneousConfidence2012]. Significance was determined when $p$<0.05 and 95% confidence was used when presenting confidence intervals (CI).
@@ -147,7 +145,7 @@ whyNot_t1 <- addmargins(xtabs(~whyNotUsed+year,data=noSGR),margin=2)
 whyNot_p1 <- round(100*prop.table(whyNot_t1,margin=2),1)
 ```
 
-The total number of articles returned by GS that met our search criteria increased significantly (`r FSA::kPvalue(pval_gs_inc)`) from `r SearchHits[1,2]` articles in 2009 to `r SearchHits[10,2]` articles in 2018, an average increase of `r RES(slp_gs_inc,0)` (CI:`r RES(cislp_gs_inc[[1]],0)`-`r RES(cislp_gs_inc[[2]],0)`) articles per year (`r figures("SearchHits",display="cite")`). Between `r RES(100-maxPU,1)`% (in `r maxPUyr`) and `r RES(100-minPU,1)`% (in `r minPUyr`) of GoogleScholar results per year did not meet our inclusion criterion. The primary reason for not being included was because the article did not meet our seach criterion of being about fish (`r RES(whyNot_p1["not fish","Sum"],1)`% of excluded articles) or about SGR (`r RES(whyNot_p1["no SGR","Sum"],1)`%). An additional `r RES(whyNot_p1["no SGR eqn","Sum"],1)`% were excluded because the article did no present the SGR equation. The total number of articles that would have met our inclusion criteria increased significantly (`r FSA::kPvalue(pval_er_inc)`) from `r SearchHits[1,5]` in 2009 to `r SearchHits[10,5]` in 2018, an average increase of `r RES(slp_er_inc,0)` (CI:`r RES(cislp_er_inc[[1]],0)`-`r RES(cislp_er_inc[[2]],0)`) articles per year (`r figures("SearchHits",display="cite")`).
+The total number of articles returned by GS that met our search criteria increased significantly (`r FSA::kPvalue(pval_gs_inc)`) from `r SearchHits[1,2]` articles in 2009 to `r SearchHits[10,2]` articles in 2018, an average increase of `r RES(slp_gs_inc,0)` (CI: `r RES(cislp_gs_inc[[1]],0)`-`r RES(cislp_gs_inc[[2]],0)`) articles per year (`r figures("SearchHits",display="cite")`). Between `r RES(100-maxPU,1)`% (in `r maxPUyr`) and `r RES(100-minPU,1)`% (in `r minPUyr`) of GS results per year did not meet our inclusion criterion. The primary reason for not being included was because the article did not meet our search criterion of being about fish (`r RES(whyNot_p1["not fish","Sum"],1)`% of excluded articles) or about SGR (`r RES(whyNot_p1["no SGR","Sum"],1)`%). An additional `r RES(whyNot_p1["no SGR eqn","Sum"],1)`% were excluded because the article did not present the SGR equation. The total number of articles that would have met our inclusion criteria increased significantly (`r FSA::kPvalue(pval_er_inc)`) from `r SearchHits[1,5]` in 2009 to `r SearchHits[10,5]` in 2018, an average increase of `r RES(slp_er_inc,0)` (CI: `r RES(cislp_er_inc[[1]],0)`-`r RES(cislp_er_inc[[2]],0)`) articles per year (`r figures("SearchHits",display="cite")`).
 
 ```{r SearchHitGraphs, echo=FALSE, results='hide', fig.height=3.5, fig.width=4}
 ## Convert wide format to long format data for ease of plotting below 
@@ -173,11 +171,9 @@ SH1 <- ggplot(data=SearchHits2,aes(x=year,y=returns,group=type)) +
                      breaks=seq(2009,2018,2),
                      minor_breaks=seq(2009,2018,1),
                      expand=expand_scale(mult=0.04)) +
-  theme_SGR +
-  theme(legend.position=c(0.75,0.15),
-        legend.title=element_blank(),
-        legend.text=element_text(size=10),
-        legend.spacing.x=unit(5,"points"))
+  geom_label(x=2011,y=3000,label="GoogleSchloar Returns",size=3) +
+  geom_label(x=2016,y=1100,label="Estimated Returns that\nMeet Inclusion Criteria",size=3) +
+  theme_SGR
 SH1
 ```
 
@@ -251,26 +247,43 @@ SGRincorrect <- filter(SGR,correqn=="N") %>%
 
 ```
 
-The vast majority of papers that used SGR were related to aquaculture (`r RES(ptblContext[1,"A"],1)`%; CI: `r RES(ptblContext[1,"95% LCI"],1)`-`r RES(ptblContext[1,"95% UCI"],1)`%) as compared to general fish ecology, and used weight (`r RES(ptblLW[1,"W"],1)`%; CI: `r RES(ptblLW[1,"95% LCI"],1)`-`r RES(ptblLW[1,"95% UCI"],1)`%) rather than length as the measure of size. Only `r sum(tblEqnUse["correct","Sum"])` of the `r sum(tblEqnUse[,"Sum"])` papers (`r RES(ciEqnUse["correct","est"],1)`%; CI: `r RES(ciEqnUse["correct","lwr.ci"],1)`-`r RES(ciEqnUse["correct","upr.ci"],1)`%) that we examined from 2009 to 2018 used the correct equation for SGR, all of which used the correct units of %/day. `r kCounts(sum(SGRcorrRefs[names(SGRcorrRefs)!="None"]),capitalize=TRUE)` of the `r sum(tblEqnUse["correct","Sum"])` papers that used the correct equation for SGR provided a reference for the equation, with `r kCounts(SGRcorrRefs["Houde and Schekter (1981)"])` citing @houdeGrowthRateRations1981 and `r kCounts(SGRcorrRefs["Ricker (1975)"])` citing @rickerComputationInterpretationBiological1975. The typical SGR equation was used in `r RES(ciEqnUse["typical","est"],1)`% (CI: `r RES(ciEqnUse["typical","lwr.ci"],1)`-`r RES(ciEqnUse["typical","upr.ci"],1)`%) of the papers. Additional papers appeared to attempt to use the typical equation, but `r RES(ciEqnUse["typical, but likely typo","est"],1)`% (CI: `r RES(ciEqnUse["typical, but likely typo","lwr.ci"],1)`-`r RES(ciEqnUse["typical, but likely typo","upr.ci"],1)`%) presented the equation with a likely typographical error, `r RES(ciEqnUse["typical, but not multiplied by 100","est"],1)`% (CI: `r RES(ciEqnUse["typical, but not multiplied by 100","lwr.ci"],1)`-`r RES(ciEqnUse["typical, but not multiplied by 100","upr.ci"],1)`%) did not multiply by 100, and `r RES(ciEqnUse["typical, but no logs","est"],1)`% (CI: `r RES(ciEqnUse["typical, but no logs","lwr.ci"],1)`-`r RES(ciEqnUse["typical, but no logs","upr.ci"],1)`%) did not use logarithms. Of the `r sum(SGRincorrUnits)` papers that did not use the correct SGR equation, `r RES(ptblNoUnits[1,"NONE"],1)`% (CI: `r RES(ptblNoUnits[1,"95% LCI"],1)`-`r RES(ptblNoUnits[1,"95% UCI"],1)`%) either did not present units for the SGR or different units appeared throughout the paper. Of the `r sum(SGRincorrUnits[c("%/day","%","other")])` papers that did not use the correction SGR equation and provided consistent units for the SGR, `r RES(ciSGRincorrUnits2["%/day","est"],1)`% (CI: `r RES(ciSGRincorrUnits2["%/day","lwr.ci"],1)`-`r RES(ciSGRincorrUnits2["%/day","upr.ci"],1)`%) used %/day and `r RES(ciSGRincorrUnits2["%","est"],1)`% (CI: `r RES(ciSGRincorrUnits2["%","lwr.ci"],1)`-`r RES(ciSGRincorrUnits2["%","upr.ci"],1)`%) used %, with the remaining `r RES(ciSGRincorrUnits2["other","est"],1)`% (CI: `r RES(ciSGRincorrUnits2["other","lwr.ci"],1)`-`r RES(ciSGRincorrUnits2["other","upr.ci"],1)`%) using a variety of incorrect units.
+The vast majority of papers that used SGR were related to aquaculture (`r RES(ptblContext[1,"A"],1)`%; CI: `r RES(ptblContext[1,"95% LCI"],1)`-`r RES(ptblContext[1,"95% UCI"],1)`%) as compared to general fish ecology, and used weight (`r RES(ptblLW[1,"W"],1)`%; CI: `r RES(ptblLW[1,"95% LCI"],1)`-`r RES(ptblLW[1,"95% UCI"],1)`%) rather than length as the measure of size. Only `r sum(tblEqnUse["correct","Sum"])` of the `r sum(tblEqnUse[,"Sum"])` papers (`r RES(ciEqnUse["correct","est"],1)`%; CI: `r RES(ciEqnUse["correct","lwr.ci"],1)`-`r RES(ciEqnUse["correct","upr.ci"],1)`%) that we examined from 2009 to 2018 correctly used $G$ for SGR, all of which used the correct units of %/day. `r kCounts(sum(SGRcorrRefs[names(SGRcorrRefs)!="None"]),capitalize=TRUE)` of the `r sum(tblEqnUse["correct","Sum"])` papers that used $G$ for SGR provided a reference for the equation, with `r kCounts(SGRcorrRefs["Houde and Schekter (1981)"])` citing @houdeGrowthRateRations1981 and `r kCounts(SGRcorrRefs["Ricker (1975)"])` citing @rickerComputationInterpretationBiological1975. The SGR was measured by $G^{\text{*}}$ in `r RES(ciEqnUse["typical","est"],1)`% (CI: `r RES(ciEqnUse["typical","lwr.ci"],1)`-`r RES(ciEqnUse["typical","upr.ci"],1)`%) of the papers. Additional papers appeared to attempt to use $G^{\text{*}}$, but `r RES(ciEqnUse["typical, but likely typo","est"],1)`% (CI: `r RES(ciEqnUse["typical, but likely typo","lwr.ci"],1)`-`r RES(ciEqnUse["typical, but likely typo","upr.ci"],1)`%) presented the equation with a likely typographical error, `r RES(ciEqnUse["typical, but not multiplied by 100","est"],1)`% (CI: `r RES(ciEqnUse["typical, but not multiplied by 100","lwr.ci"],1)`-`r RES(ciEqnUse["typical, but not multiplied by 100","upr.ci"],1)`%) did not multiply by 100, and `r RES(ciEqnUse["typical, but no logs","est"],1)`% (CI: `r RES(ciEqnUse["typical, but no logs","lwr.ci"],1)`-`r RES(ciEqnUse["typical, but no logs","upr.ci"],1)`%) did not use logarithms. Of the `r sum(SGRincorrUnits)` papers that did not use $G$, `r RES(ptblNoUnits[1,"NONE"],1)`% (CI: `r RES(ptblNoUnits[1,"95% LCI"],1)`-`r RES(ptblNoUnits[1,"95% UCI"],1)`%) either did not present units for SGR or different units appeared throughout the paper. Of the `r sum(SGRincorrUnits[c("%/day","%","other")])` papers that did not use $G$ and provided consistent units for the SGR, `r RES(ciSGRincorrUnits2["%/day","est"],1)`% (CI: `r RES(ciSGRincorrUnits2["%/day","lwr.ci"],1)`-`r RES(ciSGRincorrUnits2["%/day","upr.ci"],1)`%) used %/day and `r RES(ciSGRincorrUnits2["%","est"],1)`% (CI: `r RES(ciSGRincorrUnits2["%","lwr.ci"],1)`-`r RES(ciSGRincorrUnits2["%","upr.ci"],1)`%) used %, with the remaining `r RES(ciSGRincorrUnits2["other","est"],1)`% (CI: `r RES(ciSGRincorrUnits2["other","lwr.ci"],1)`-`r RES(ciSGRincorrUnits2["other","upr.ci"],1)`%) using a variety of incorrect units.
 
 
-# Correct versus common SGR equation
+# *G* Should be Used Instead of *G*$^{*}$
+## Instantaneous rates and percent change
 
-######## WILL BE MORE HERE
+######## Below here are some ramblings as I thought through this more ... perhaps they are useful.
+
+The instantaneous rate of change for an exponential function depends on the x-axis variable, such that the instantaneous rate of change for an increasing exponential function increases with x and vice versa for a decreasing exponential function. It is well known that an exponential function can be linearized by log$_{\text{e}}$ transforming the y variable, and that the slope of this transformed function is the instantaneous rate of change of the original exponential function. This is, for example, the basis for the well-known catch curve method for estimating instantaneous mortality rates of fish (CITATIONS). The slope of the transformed function may be approximated from two points as the change in log$_{\text{e}}(y)$ over the change in $x$ (this is also the finite approximation to the derivative of the original function). If $y$ is weight of a fish and $x$ is time, then this slope is the instantaneous growth rate $g$. The value of $g$ is constant and suggests that the rate at which the log of weight changes with time is constant; it does NOT, however, suggest that weight change with time is constant. Thus, it is incorrect to multiply $g$ by 100 and label it as a "percent change in weight" as those that use $G^{\text{*}}$ do.
+
+The instantaneous growth rate is the change in log weight for a unit change in time as seen in the equation for $g$ [@elliottFunctionalRelationshipBody1995]. However, the numerator in $g$ can be equivalently written (using a law of logarithms) as $\text{log}_{\text{e}} \bigg(\frac{w_{2}}{w_{1}}\bigg)$, which shows that $g$ is the log of the ratio of weights over a unit of time. Thus, back-transforming (i.e., exponentiating) $g$ gives a ratio of weights over a unit of time. Completing the calculation of $G$ by subtracting one from this back-transformed value and multiplying by 100 gives the percentage change in weight from $t_{1}$ to $t_{2}$. Thus, simple algebra (i.e., exponentiate, subtract 1, and multiply by 100) correctly produces the percent change in weight from $g$.
+
+######## MAY BE MORE HERE
+
+## Error in using *G*$^{*}$ to approximate *G*
+
+Show that *G*$^{*}$ can approximate *G* of t is small
+
+Show, however, that the error can compound ... Arapaima example
 
 
-We argue that the SGR equation is incorrectly formulated, and therefore incorrectly reported as a percent change in daily growth. Because the SGR equation actually represents instantaneous growth, the units are log weight per unit time (Elliott & Hurley 1995) not percent weight per unit time.  However, it has become convention in the aquaculture and fisheries literature to multiply the instantaneous growth rate by 100 and report the value as a percentage change in weight per unit time.  Although this method for reporting specific growth rate is included in several widely used texts (Busacker et al. 1990; Wooten 1990, Moyle & Cech 2004; Shoup and Michaletz 2017), and highly cited reviews on growth of fishes and research publications (e.g., Hopkins 1992; Cook et al. 2000; Lugert et al. 2014), it is only an approximation of percent change in weight and is negatively biased (Hopkins 1992). The conventional SGR equation (eq. 1) uses an instantaneous rate to approximate a finite rate (% weight/day).  Therefore, error is affected by both the total change in body size (numerator) and duration of the study (denominator).  For a given size fish, the difference between the instantaneous and true exponential growth rate decreases as t increases because the estimate of the slope of the secant line is based on smaller and smaller intervals (i.e., the linear secant line better approximates the curved exponential line as the interval between two points decreases).  Similarly, for a given duration of study (t), greater changes in weight will result in increased bias of growth rates compared the true exponential growth rate.
-
-######## WILL BE MORE HERE
+######## WILL BE FLESHED OUT
 
 
 # Conclusions and recommendations
 
-######## WILL BE MORE HERE
+######## POSSIBILITIES BELOW
 
+SGR is widely used
 
-### Conflict of interest
-Authors declare they have no conflict of interest.
+*G*$^{*}$ is technically flawed (it is not a percent change)
+
+Using *G*$^{*}$ instead of $G$ can result in substantial error
+
+Computing $G$ is only two steps more than computing *G*$^{*}$ (exponentiate, subtract 1) ... so no excuse not to use it
+
+Future research should report $G$ as a matter of correctness and, possibly, $g$ to allow comparison with previously published *G*$^{*}$ ????
 
 
 ### Acknowledgments
@@ -279,3 +292,5 @@ Authors declare they have no conflict of interest.
 
 
 ### References
+
+######## Will need to fix capitalization on scientific names in references ... can't get Zotero to cooperate. Book chapters are not correct. Waiting to see if RAQ can send a CSL file.
