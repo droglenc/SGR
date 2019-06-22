@@ -229,6 +229,12 @@ tblLW <- xtabs(~lenwt,data=SGR)
 ( tblEqnUse <- addmargins(xtabs(~eqnused+year,data=SGR),margin=2) )
 ( ciEqnUse <- 100*DescTools::MultinomCI(tblEqnUse[,"Sum"],method="wilson"))
 
+## Refereces
+( tblEqnRefs <- xtabs(~eqnref,data=SGR) )
+sum(tblEqnRefs[-1])
+( ptblEqnRefs <- 100*cbind(UsedRef=1-prop.table(tblEqnRefs)[["None"]],
+                      binCI(sum(tblEqnRefs[-1]),sum(tblEqnRefs),type="wilson")) )
+
 ## Correct papers
 SGRcorrect <- filter(SGR,correqn=="Y") %>%
   droplevels()
