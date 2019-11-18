@@ -76,7 +76,7 @@ SearchHits2 <- SearchHits %>%
 
 ## Create the figure caption
 figures(name="SearchHits",
-        caption=paste("Number of articles returned from a GoogleScholar search",
+        caption=paste("Number of articles returned from a Google Scholar search",
                       "using 'specific growth rate' AND fish and the estimated",
                       "number of articles that met our inclusion criteria by",
                       "year from 2009-2018."))
@@ -91,9 +91,9 @@ SH1 <- ggplot(data=SearchHits2,aes(x=year,y=returns,group=type)) +
                      breaks=seq(2009,2018,1),
                      minor_breaks=seq(2009,2018,1),
                      expand=expand_scale(mult=0.04)) +
-  annotate(geom="label",x=2011,y=3000,size=3,label="GoogleSchloar returns") +
+  annotate(geom="label",x=2011,y=3000,size=3,label="Google Scholar returns") +
   annotate(geom="label",x=2016,y=1100,size=3,
-           label="Estimated returns that\nmeet inclusion criteria") +
+           label="Estimated returns that\nmet inclusion criteria") +
   theme_SGR +
   theme(axis.text.x=element_text(angle=45,hjust=1))
 SH1
